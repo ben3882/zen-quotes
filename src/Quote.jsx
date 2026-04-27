@@ -3,11 +3,13 @@ import Button from "./Button";
 
 export default function Quote() {
   const [quote, setQuote] = useState("Get a daily quote from Zen Quotes");
+  const [buttonText, setButtonText] = useState("Get Today's Quote");
   // 1. We mark the function as 'async' so we can use 'await' inside it
   async function getDailyQuote() {
     try {
       // 2. The 'await' pauses this function until the network request finishes
-      const response = await fetch("https://corsproxy.io/?https://zenquotes.io/api/random");
+      const response = await fetch("http://localhost:3001/api/quote");
+      //const response = await fetch("https://corsproxy.io/?https://zenquotes.io/api/random");
 
       // 3. Always check if the response is okay (status 200)
       if (!response.ok) {
@@ -28,6 +30,7 @@ export default function Quote() {
       // You could then update your HTML here:
       // document.getElementById('quote-box').innerText = quote;
       setQuote(newQuote);
+      setButtonText("Get another quote!");
     } catch (error) {
       // 6. If the internet is down or the URL is wrong, this block catches it
       console.error("Oops, something went wrong:", error);
@@ -35,15 +38,14 @@ export default function Quote() {
   }
 
   // Call the function
-
   return (
     <>
       <main className="container px-5 py-24 mx-auto flex">
         <div className="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
-          <blockquote className="flex-grow sm:pr-16 text-2xl font-medium title-font text-gray-900">
+          <blockquote className="grow sm:pr-16 text-2xl font-medium title-font text-gray-900">
             {quote}
           </blockquote>
-          <Button getQuote={getDailyQuote} />
+          <Button getQuote={getDailyQuote} buttonText={buttonText} />
         </div>
       </main>
     </>
