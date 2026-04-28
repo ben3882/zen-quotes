@@ -8,8 +8,8 @@ export default function Quote() {
   async function getDailyQuote() {
     try {
       // 2. The 'await' pauses this function until the network request finishes
-      const response = await fetch("http://localhost:3001/api/quote");
-      //const response = await fetch("https://corsproxy.io/?https://zenquotes.io/api/random");
+      const response = await fetch("https://quotes-api.habaneropress.com/api/quote");
+      
 
       // 3. Always check if the response is okay (status 200)
       if (!response.ok) {
